@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: unzip -o McWorldManager.zip -d proj
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -13,8 +14,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.7
-      - run: gradle assembleDebug
+      - run: gradle -p proj assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: app/build/outputs/apk/debug/*.apk
+          path: proj/app/build/outputs/apk/debug/*.apk
